@@ -15,25 +15,25 @@ log "Copying files in ${UNIVERSE_SRC} to ${UNIVERSE_DEST} (if any exist)."
 # Copy/overwrite players
 if [ "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
 	if [ "${OVERWRITE_PLAYERS}" = true ]; then
-		log_warning "OVERWRITE_PLAYERS is true, removing ${UNIVERSE_DEST}/players..."
+		log_warning "OVERWRITE_PLAYERS is true, overwriting ${UNIVERSE_DEST}/players..."
 		rm -rf "${UNIVERSE_DEST}"/players
+		cp -r "${UNIVERSE_SRC}"/players "${UNIVERSE_DEST}"
+	else
+		log "${UNIVERSE_SRC}/players already exists. Skipping..."
 	fi
-
-	log "Copying ${UNIVERSE_SRC}/players to ${UNIVERSE_DEST}..."
-	cp -r "${UNIVERSE_SRC}"/players "${UNIVERSE_DEST}"
 else
 	log "${UNIVERSE_SRC}/players is not populated. Skipping..."
 fi
 
 # Copy/overwrite memories
-if [ "$(ls -A "${UNIVERSE_SRC}"/memories* 2> /dev/null)" ]; then
+if [ "$(ls -A "${UNIVERSE_SRC}"/memories.* 2> /dev/null)" ]; then
 	if [ "${OVERWRITE_MEMORIES}" = true ]; then
-		log_warning "OVERWRITE_MEMORIES is true, removing ${UNIVERSE_DEST}/memories.*..."
+		log_warning "OVERWRITE_MEMORIES is true, overwriting ${UNIVERSE_DEST}/memories.*..."
 		rm -rf "${UNIVERSE_DEST}"/memories.*
+		cp -r "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
+	else
+		log "${UNIVERSE_SRC}/memories.* already exists. Skipping..."
 	fi
-
-	log "Copying ${UNIVERSE_SRC}/memories.* to ${UNIVERSE_DEST}..."
-	cp -r "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
 else
 	log "${UNIVERSE_SRC}/memories.* does not exist. Skipping..."
 fi
@@ -41,12 +41,12 @@ fi
 # Copy/overwrite warps
 if [ "$(ls -A "${UNIVERSE_SRC}"/warps.* 2> /dev/null)" ]; then
 	if [ "${OVERWRITE_PLAYERS}" = true ]; then
-		log_warning "OVERWRITE_WARPS is true, removing ${UNIVERSE_DEST}/warps.*..."
+		log_warning "OVERWRITE_WARPS is true, overwriting ${UNIVERSE_DEST}/warps.*..."
 		rm -rf "${UNIVERSE_DEST}"/warps.*
+		cp -r "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
+	else
+		log "${UNIVERSE_SRC}/warps.* already exists. Skipping..."
 	fi
-
-	log "Copying ${UNIVERSE_SRC}/warps.* to ${UNIVERSE_DEST}..."
-	cp -r "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
 else
 	log "${UNIVERSE_SRC}/warps.* does not exist. Skipping..."
 fi
