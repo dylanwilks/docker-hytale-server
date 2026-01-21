@@ -1,0 +1,19 @@
+services:
+  hytale-server:
+    build:
+      dockerfile: Dockerfile
+    container_name: hytale-server
+    env_file:
+      - .env
+    ports:
+      - 5520:5520/udp
+    volumes:
+      - hytale-data:/data
+      - ./universe:/universe
+      - ./mods:/mods
+    stdin_open: true
+    tty: true
+
+volumes:
+  hytale-data:
+    name: "hytale-data"

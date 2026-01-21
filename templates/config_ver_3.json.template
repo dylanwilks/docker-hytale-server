@@ -1,0 +1,27 @@
+{
+  "Version": ${VERSION},
+  "ServerName": "${SERVER_NAME}",
+  "MOTD": "${MOTD}",
+  "Password": "${PASSWORD}",
+  "MaxPlayers": ${MAX_PLAYERS},
+  "MaxViewRadius": ${MAX_VIEW_RADIUS},
+  "Defaults": {
+    "World": "${WORLD}",
+    "GameMode": "${GAMEMODE}"
+  },
+  "ConnectionTimeouts": {
+    "JoinTimeouts": {}
+  },
+  "RateLimit": {},
+  "Modules": {
+	"PathPlugin": {
+		"Modules": {}
+	}
+  },
+  "LogLevels": {},
+  "Mods": {},
+  "DisplayTmpTagsInStrings": false,
+  "PlayerStorage": {
+    "Type": "Hytale"
+  }
+}
