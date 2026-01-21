@@ -62,7 +62,7 @@ ${RECENT_VERSION} (current: ${CURRENT_VERSION})."
 	fi
 fi
 
-if if_true "${USE_PRERELEASE}"; then
+if is_true "${USE_PRERELEASE}"; then
 	log_warning "${DOWNLOADER_NAME} set to download from pre-release channel."
 	ARGS="${ARGS} --patchline pre-release"
 fi
