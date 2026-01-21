@@ -6,8 +6,8 @@
   "MaxPlayers": ${MAX_PLAYERS},
   "MaxViewRadius": ${MAX_VIEW_RADIUS},
   "Defaults": {
-    "World": "${WORLD}",
-    "GameMode": "${GAMEMODE}"
+    "World": "${DEFAULT_WORLD}",
+    "GameMode": "${DEFAULT_GAMEMODE}"
   },
   "ConnectionTimeouts": {
     "JoinTimeouts": {}
