@@ -35,9 +35,9 @@ if [ "$(ls -A "${UNIVERSE_SRC}"/memories.* 2> /dev/null)" ]; then
 			log_warning "OVERWRITE_MEMORIES is true, overwriting ${UNIVERSE_DEST}/memories.*..."
 			rm -rf "${UNIVERSE_DEST}"/memories.*
 			cp -r "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
+		else
+			log "memories.* already exists. Skipping..."
 		fi
-
-		log "memories.* already exists. Skipping..."
 	else
 		log "Copying ${UNIVERSE_SRC}/memories.* to ${UNIVERSE_DEST}/memories.*..."
 		cp "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
@@ -53,9 +53,9 @@ if [ "$(ls -A "${UNIVERSE_SRC}"/warps.* 2> /dev/null)" ]; then
 			log_warning "OVERWRITE_WARPS is true, overwriting ${UNIVERSE_DEST}/warps.*..."
 			rm -rf "${UNIVERSE_DEST}"/warps.*
 			cp -r "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
+		else
+			log "${UNIVERSE_SRC}/warps.* already exists. Skipping..."
 		fi
-
-		log "${UNIVERSE_SRC}/warps.* already exists. Skipping..."
 	else
 		log "Copying ${UNIVERSE_SRC}/warps.* to ${UNIVERSE_DEST}/warps.*..."
 		cp "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
@@ -78,9 +78,9 @@ for WORLD in "${SRC_WORLDS[@]}"; do
 			cp -r "${WORLDS_SRC}"/"${WORLD}" "${WORLDS_DEST}"
 
 			continue
+		else
+			log "World ${WORLD} already exists. Skipping..."
 		fi
-
-		log "World ${WORLD} already exists. Skipping..."
 	else
 		cp -r "${WORLDS_SRC}"/"${WORLD}" "${WORLDS_DEST}"
 		log "Copied ${WORLDS_SRC}/${WORLD} to ${WORLDS_DEST}."
