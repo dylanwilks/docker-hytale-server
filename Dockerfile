@@ -6,7 +6,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	gettext \
 	curl \
 	jq \
+	gosu \
 	vim \
+	less \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -20,9 +22,8 @@ WORKDIR /data
 
 COPY --chmod=755 ./scripts /scripts
 COPY --chmod=755 ./templates /templates
-RUN /scripts/root/setup_machine_id.sh
 
-USER hytale
+ENV UID=1000 GID=1000
 EXPOSE 5520/udp
 HEALTHCHECK --start-period=2m \
 			--interval=30s \

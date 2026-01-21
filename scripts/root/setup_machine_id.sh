@@ -17,5 +17,5 @@ if [ ! -f "${MACHINE_ID_DIR}"/uuid ]; then
 fi
 
 cp "${MACHINE_ID_DIR}"/machine-id /etc/machine-id
-mkdir -p /var/lib/dbus
+mkdir -p /var/lib/dbus 2> /dev/null
 cp "${MACHINE_ID_DIR}"/dbus-machine-id /var/lib/dbus/machine-id
