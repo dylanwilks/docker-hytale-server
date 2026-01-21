@@ -89,7 +89,7 @@ if [ -f ".refresh_token" ]; then
 fi
 
 # Get new refresh token if invalid
-if [ ! -f ".refresh_token"  ] || [ "${ERROR}" ]; then
+if [ ! -f ".refresh_token"  ] || [ -n "${ERROR}" ]; then
 	log_warning "Refresh token invalid. Verification will be required for a new one."
 	log "Requesting for device code."
 	DEVICE_CODE_RESPONSE="$(request_device_code)"

@@ -49,7 +49,7 @@ fi
 
 # Download game files
 ARGS=""
-if [ "${SKIP_UPDATE_CHECK}" = true ]; then
+if is_true "${SKIP_UPDATE_CHECK}"; then
 	log_warning "Skipping update check, ${DOWNLOADER_NAME} version will not be checked."
 	ARGS="${ARGS} --skip-update-check"
 else
@@ -62,7 +62,7 @@ ${RECENT_VERSION} (current: ${CURRENT_VERSION})."
 	fi
 fi
 
-if [ "${USE_PRERELEASE}" = true ]; then
+if if_true "${USE_PRERELEASE}"; then
 	log_warning "${DOWNLOADER_NAME} set to download from pre-release channel."
 	ARGS="${ARGS} --patchline pre-release"
 fi
@@ -70,16 +70,16 @@ fi
 if [ ! -f ./Server/HytaleServer.jar ] || [ ! -f ./Assets.zip ]; then
 	log_warning "Missing server files. Perhaps first time setup?"
 	download_server "${ARGS}"
-elif [ "${FORCE_DOWNLOAD}" = true ]; then
+elif is_true "${FORCE_DOWNLOAD}"; then
 	log_warning "FORCE_DOWNLOAD is true. Downloading files regardless of version."
 	download_server "${ARGS}"
-elif [ "${UPDATE_SERVER}" = true ]; then
+elif is_true "${UPDATE_SERVER}"; then
 	if [ -f "${VERSION_FILE}" ]; then
 		CURRENT_GAME_VERSION=$(cat "${VERSION_FILE}")
 	fi
 
 	LATEST_GAME_VERSION="$(./${DOWNLOADER_NAME} ${ARGS} --print-version)"
-	if [ ! "${CURRENT_GAME_VERSION}" ]; then
+	if [ -z "${CURRENT_GAME_VERSION}" ]; then
 		log_warning "Cannot identity current version (missing .version)."
 		log_warning "Set to download files..."
 		download_server "${ARGS}"

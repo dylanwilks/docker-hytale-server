@@ -23,17 +23,24 @@ get_version() {
 	done
 }
 
-bool() {
-	case $1 in
-		"true") 
-			return true
-			;;
-		"false") 
-			return false
+is_true() {
+	case "${1,,}" in
+		true | yes | on | 1) 
+			return 0
 			;;
 		*) 
-			log_error "Invalid input \"$1\""; 
-			exit 1
+			return 1
+			;;
+	esac
+}
+
+is_false() {
+	case "${1,,}" in
+		false | no | off | 0) 
+			return 0
+			;;
+		*) 
+			return 1
 			;;
 	esac
 }

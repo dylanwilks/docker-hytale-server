@@ -15,9 +15,9 @@ mkdir -p ./universe/worlds 2> /dev/null
 mkdir -p ./universe/players 2> /dev/null
 log "Copying files in ${UNIVERSE_SRC} to ${UNIVERSE_DEST} (if any exist)."
 # Copy/overwrite players
-if [ "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
-	if [ "$(ls -A "${UNIVERSE_DEST}"/players 2> /dev/null)" ]; then
-		if [ "${OVERWRITE_PLAYERS}" = true ]; then
+if [ -n "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
+	if [ -n "$(ls -A "${UNIVERSE_DEST}"/players 2> /dev/null)" ]; then
+		if is_true "${OVERWRITE_PLAYERS}"; then
 			log_warning "OVERWRITE_PLAYERS is true, overwriting ${UNIVERSE_DEST}/players..."
 			rm -rf "${UNIVERSE_DEST}"/players
 			cp -r "${UNIVERSE_SRC}"/players "${UNIVERSE_DEST}"
@@ -29,9 +29,9 @@ if [ "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
 fi
 
 # Copy/overwrite memories
-if [ "$(ls -A "${UNIVERSE_SRC}"/memories.* 2> /dev/null)" ]; then
-	if [ "$(ls -A "${UNIVERSE_DEST}"/memories.* 2> /dev/null)" ]; then
-		if [ "${OVERWRITE_MEMORIES}" = true ]; then
+if [ -n "$(ls -A "${UNIVERSE_SRC}"/memories.* 2> /dev/null)" ]; then
+	if [ -n "$(ls -A "${UNIVERSE_DEST}"/memories.* 2> /dev/null)" ]; then
+		if is_true "${OVERWRITE_MEMORIES}"; then
 			log_warning "OVERWRITE_MEMORIES is true, overwriting ${UNIVERSE_DEST}/memories.*..."
 			rm -rf "${UNIVERSE_DEST}"/memories.*
 			cp -r "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
@@ -47,9 +47,9 @@ else
 fi
 
 # Copy/overwrite warps
-if [ "$(ls -A "${UNIVERSE_SRC}"/warps.* 2> /dev/null)" ]; then
-	if [ "$(ls -A "${UNIVERSE_DEST}"/warps.* 2> /dev/null)" ]; then
-		if [ "${OVERWRITE_PLAYERS}" = true ]; then
+if [ -n "$(ls -A "${UNIVERSE_SRC}"/warps.* 2> /dev/null)" ]; then
+	if [ -n "$(ls -A "${UNIVERSE_DEST}"/warps.* 2> /dev/null)" ]; then
+		if is_true "${OVERWRITE_PLAYERS}"; then
 			log_warning "OVERWRITE_WARPS is true, overwriting ${UNIVERSE_DEST}/warps.*..."
 			rm -rf "${UNIVERSE_DEST}"/warps.*
 			cp -r "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"

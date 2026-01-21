@@ -29,46 +29,46 @@ if [ ! -f auth.enc ] && ([ -z "${SESSION_TOKEN}" ] || [ -z "${IDENTITY_TOKEN}" ]
 	SERVER_ARGS+=(--boot-command "auth persistence Encrypted","auth login device")
 fi
 
-if [ "${BOOT_COMMAND}" ]; then
+if [ -n "${BOOT_COMMAND}" ]; then
 	SERVER_ARGS+=(--boot-command ${BOOT_COMMAND})
 fi
 
-if [ "${ALLOW_OP}" = true ]; then
+if is_true "${ALLOW_OP}"; then
 	SERVER_ARGS+=(--allow-op)
 fi
 
-if [ "${ENABLE_BACKUPS}" = true ]; then
+if is_true "${ENABLE_BACKUPS}"; then
 	SERVER_ARGS+=(--backup \
 --backup-frequency ${BACKUP_FREQUENCY} \
 --backup-max-count ${BACKUP_MAX_COUNT} \
 --backup-dir ${BACKUP_DIR})
 fi
 
-if [ "${OWNER_UUID}" ]; then
+if [ -n "${OWNER_UUID}" ]; then
 	SERVER_ARGS+=(--owner-uuid ${OWNER_UUID})
 fi
 
-if [ "${OWNER_NAME}" ]; then
+if [ -n "${OWNER_NAME}" ]; then
 	SERVER_ARGS+=(--owner-name ${OWNER_NAME})
 fi
 
-if [ "${DISABLE_SENTRY}" = true ]; then
+if is_true "${DISABLE_SENTRY}"; then
 	SERVER_ARGS+=(--disable-sentry)
 fi
 
-if [ "${ACCEPT_EARLY_PLUGINS}" = true ]; then
+if is_true "${ACCEPT_EARLY_PLUGINS}"; then
 	SERVER_ARGS+=(--accept-early-plugins)
 fi
 
-if [ "${VALIDATE_ASSETS}" = true ]; then
+if is_true "${VALIDATE_ASSETS}"; then
 	SERVER_ARGS+=(--validate-assets)
 fi
 
-if [ "${VALIDATE_WORLD_GEN}" = true ]; then
+if is_true "${VALIDATE_WORLD_GEN}"; then
 	SERVER_ARGS+=(--validate-world-gen)
 fi
 
-if [ "${VALIDATE_PREFABS}" ]; then
+if [ -n "${VALIDATE_PREFABS}" ]; then
 	SERVER_ARGS+=(--validate-prefabs ${VALIDATE_PREFABS})
 fi
 
