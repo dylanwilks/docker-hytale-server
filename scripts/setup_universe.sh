@@ -11,28 +11,36 @@ source "$(dirname "$0")/utils.sh"
 UNIVERSE_DEST=/data/universe
 WORLDS_DEST=/data/universe/worlds
 
+mkdir -p ./universe/worlds 2> /dev/null
+mkdir -p ./universe/players 2> /dev/null
 log "Copying files in ${UNIVERSE_SRC} to ${UNIVERSE_DEST} (if any exist)."
 # Copy/overwrite players
 if [ "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
-	if [ "${OVERWRITE_PLAYERS}" = true ]; then
-		log_warning "OVERWRITE_PLAYERS is true, overwriting ${UNIVERSE_DEST}/players..."
-		rm -rf "${UNIVERSE_DEST}"/players
-		cp -r "${UNIVERSE_SRC}"/players "${UNIVERSE_DEST}"
-	else
-		log "${UNIVERSE_SRC}/players already exists. Skipping..."
+	if [ "$(ls -A "${UNIVERSE_DEST}"/players 2> /dev/null)" ]; then
+		if [ "${OVERWRITE_PLAYERS}" = true ]; then
+			log_warning "OVERWRITE_PLAYERS is true, overwriting ${UNIVERSE_DEST}/players..."
+			rm -rf "${UNIVERSE_DEST}"/players
+			cp -r "${UNIVERSE_SRC}"/players "${UNIVERSE_DEST}"
+		fi
 	fi
-else
-	log "${UNIVERSE_SRC}/players is not populated. Skipping..."
+
+	log "Populating ${UNIVERSE_DEST}/players with any new player profiles from ${UNIVERSE_SRC}/players..."
+	cp --update=none "${UNIVERSE_SRC}"/players/* "${UNIVERSE_DEST}"/players
 fi
 
 # Copy/overwrite memories
 if [ "$(ls -A "${UNIVERSE_SRC}"/memories.* 2> /dev/null)" ]; then
-	if [ "${OVERWRITE_MEMORIES}" = true ]; then
-		log_warning "OVERWRITE_MEMORIES is true, overwriting ${UNIVERSE_DEST}/memories.*..."
-		rm -rf "${UNIVERSE_DEST}"/memories.*
-		cp -r "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
+	if [ "$(ls -A "${UNIVERSE_DEST}"/memories.* 2> /dev/null)" ]; then
+		if [ "${OVERWRITE_MEMORIES}" = true ]; then
+			log_warning "OVERWRITE_MEMORIES is true, overwriting ${UNIVERSE_DEST}/memories.*..."
+			rm -rf "${UNIVERSE_DEST}"/memories.*
+			cp -r "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
+		fi
+
+		log "memories.* already exists. Skipping..."
 	else
-		log "${UNIVERSE_SRC}/memories.* already exists. Skipping..."
+		log "Copying ${UNIVERSE_SRC}/memories.* to ${UNIVERSE_DEST}/memories.*..."
+		cp "${UNIVERSE_SRC}"/memories.* "${UNIVERSE_DEST}"
 	fi
 else
 	log "${UNIVERSE_SRC}/memories.* does not exist. Skipping..."
@@ -40,12 +48,17 @@ fi
 
 # Copy/overwrite warps
 if [ "$(ls -A "${UNIVERSE_SRC}"/warps.* 2> /dev/null)" ]; then
-	if [ "${OVERWRITE_PLAYERS}" = true ]; then
-		log_warning "OVERWRITE_WARPS is true, overwriting ${UNIVERSE_DEST}/warps.*..."
-		rm -rf "${UNIVERSE_DEST}"/warps.*
-		cp -r "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
-	else
+	if [ "$(ls -A "${UNIVERSE_DEST}"/warps.* 2> /dev/null)" ]; then
+		if [ "${OVERWRITE_PLAYERS}" = true ]; then
+			log_warning "OVERWRITE_WARPS is true, overwriting ${UNIVERSE_DEST}/warps.*..."
+			rm -rf "${UNIVERSE_DEST}"/warps.*
+			cp -r "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
+		fi
+
 		log "${UNIVERSE_SRC}/warps.* already exists. Skipping..."
+	else
+		log "Copying ${UNIVERSE_SRC}/warps.* to ${UNIVERSE_DEST}/warps.*..."
+		cp "${UNIVERSE_SRC}"/warps.* "${UNIVERSE_DEST}"
 	fi
 else
 	log "${UNIVERSE_SRC}/warps.* does not exist. Skipping..."
@@ -53,7 +66,6 @@ fi
 
 # Copy all worlds in WORLDS_SRC to WORLDS_DEST. Overwrite if specified
 log "Copying worlds in ${WORLDS_SRC} to ${WORLDS_DEST} (if any exist)."
-mkdir -p ./universe/worlds 2> /dev/null
 SRC_WORLDS=($(ls -d "${WORLDS_SRC}"/*/ 2> /dev/null | \
 	sed 's:/*$::' | \
 	awk -F '/' '{print $NF}'))
