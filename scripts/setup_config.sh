@@ -13,7 +13,6 @@ if [ "$?" -ne 0 ]; then
 	export PASSWORD="${PASSWORD:-}"
 	export MAX_PLAYERS="${MAX_PLAYERS:-100}"
 	export MAX_VIEW_RADIUS="${MAX_VIEW_RADIUS:-32}"
-	export LOCAL_COMPRESSION="${LOCAL_COMPRESSION:-false}"
 	export DEFAULT_WORLD="${DEFAULT_WORLD:-default}"
 	export DEFAULT_GAMEMODE="${DEFAULT_GAMEMODE:-Adventure}"
 
@@ -26,7 +25,6 @@ else
 	export PASSWORD="${PASSWORD:-"$(jq -r '.Password' <<< "${CONFIG}")"}"
 	export MAX_PLAYERS="${MAX_PLAYERS:-"$(jq -r '.MaxPlayers' <<< "${CONFIG}")"}"
 	export MAX_VIEW_RADIUS="${MAX_VIEW_RADIUS:-"$(jq -r '.MaxViewRadius' <<< "${CONFIG}")"}"
-	export LOCAL_COMPRESSION="${LOCAL_COMPRESSION:-"$(jq -r '.LocalCompressionEnabled' <<< "${CONFIG}")"}"
 	export DEFAULT_WORLD="${DEFAULT_WORLD:-"$(jq -r '.Defaults.World' <<< "${CONFIG}")"}"
 	export DEFAULT_GAMEMODE="${DEFAULT_GAMEMODE:-"$(jq -r '.Defaults.GameMode' <<< "${CONFIG}")"}"
 

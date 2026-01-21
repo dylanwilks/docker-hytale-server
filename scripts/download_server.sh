@@ -2,7 +2,7 @@
 
 source "$(dirname "$0")/utils.sh"
 
-: "${DOWNLOAD_SERVER:=true}"
+: "${FORCE_DOWNLOAD:=false}"
 : "${SKIP_UPDATE_CHECK:=false}"
 : "${USE_PRERELEASE:=false}"
 DOWNLOADER_NAME=hytale-downloader-linux-amd64

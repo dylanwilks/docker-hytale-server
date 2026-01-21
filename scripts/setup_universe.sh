@@ -4,13 +4,16 @@ source "$(dirname "$0")/utils.sh"
 
 : "${UNIVERSE_SRC:=/universe}"
 : "${WORLDS_SRC:=/universe/worlds}"
+: "${OVERWRITE_PLAYERS:=false}"
+: "${OVERWRITE_MEMORIES:=false}"
+: "${OVERWRITE_WARPS:=false}"
 : "${OVERWRITE_WORLDS:=}"
 UNIVERSE_DEST=/data/universe
 WORLDS_DEST=/data/universe/worlds
 
 # Copy/overwrite players
 if [ "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
-	if [ "${OVERWRITE_PLAYERS}" ]; then
+	if [ "${OVERWRITE_PLAYERS}" = true ]; then
 		log_warning "OVERWRITE_PLAYERS is true, removing ${UNIVERSE_DEST}/players..."
 		rm -rf "${UNIVERSE_DEST}"/players
 	fi
@@ -23,7 +26,7 @@ fi
 
 # Copy/overwrite memories
 if [ "$(ls -A "${UNIVERSE_SRC}"/memories* 2> /dev/null)" ]; then
-	if [ "${OVERWRITE_MEMORIES}" ]; then
+	if [ "${OVERWRITE_MEMORIES}" = true ]; then
 		log_warning "OVERWRITE_MEMORIES is true, removing ${UNIVERSE_DEST}/memories.*..."
 		rm -rf "${UNIVERSE_DEST}"/memories.*
 	fi
@@ -36,7 +39,7 @@ fi
 
 # Copy/overwrite warps
 if [ "$(ls -A "${UNIVERSE_SRC}"/warps.* 2> /dev/null)" ]; then
-	if [ "${OVERWRITE_PLAYERS}" ]; then
+	if [ "${OVERWRITE_PLAYERS}" = true ]; then
 		log_warning "OVERWRITE_WARPS is true, removing ${UNIVERSE_DEST}/warps.*..."
 		rm -rf "${UNIVERSE_DEST}"/warps.*
 	fi
