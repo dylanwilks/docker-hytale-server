@@ -13,10 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN userdel -r ubuntu
-RUN addgroup --gid 1000 hytale
-RUN adduser --system --shell /bin/false --uid 1000 --ingroup hytale --home /data hytale
 
-RUN chown hytale:hytale /data
 VOLUME ["/data"]
 WORKDIR /data
 
