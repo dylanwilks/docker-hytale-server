@@ -13,6 +13,7 @@ fi
 
 if [ "$(ls -A "${MODS_SRC}" 2> /dev/null)" ]; then
 	log "Copying mods and configs in ${MODS_SRC} to ${MODS_DEST}..."
+	mkdir -p "${MODS_DEST}" 2> /dev/null
 	cp -r --update "${MODS_SRC}"/* "${MODS_DEST}"
 fi
 

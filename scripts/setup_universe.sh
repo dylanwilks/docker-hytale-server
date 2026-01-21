@@ -53,6 +53,7 @@ fi
 
 # Copy all worlds in WORLDS_SRC to WORLDS_DEST. Overwrite if specified
 log "Copying worlds in ${WORLDS_SRC} to ${WORLDS_DEST} (if any exist)."
+mkdir -p ./universe/worlds 2> /dev/null
 SRC_WORLDS=($(ls -d "${WORLDS_SRC}"/*/ 2> /dev/null | \
 	sed 's:/*$::' | \
 	awk -F '/' '{print $NF}'))
