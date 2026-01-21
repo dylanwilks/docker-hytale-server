@@ -11,7 +11,7 @@ if [ "${REMOVE_OLD_MODS}" = true ]; then
 	rm -rf "${MODS_SRC}/*" > /dev/null 2>&1
 fi
 
-if [ "$(ls -A "${MODS_SRC}")" ]; then
+if [ "$(ls -A "${MODS_SRC}" 2> /dev/null)" ]; then
 	log "Copying mods and configs in ${MODS_SRC} to ${MODS_DEST}..."
 	cp -r --update "${MODS_SRC}"/* "${MODS_DEST}"
 fi

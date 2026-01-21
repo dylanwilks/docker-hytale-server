@@ -11,6 +11,7 @@ source "$(dirname "$0")/utils.sh"
 UNIVERSE_DEST=/data/universe
 WORLDS_DEST=/data/universe/worlds
 
+log "Copying files in ${UNIVERSE_SRC} to ${UNIVERSE_DEST} (if any exist)."
 # Copy/overwrite players
 if [ "$(ls -A "${UNIVERSE_SRC}"/players 2> /dev/null)" ]; then
 	if [ "${OVERWRITE_PLAYERS}" = true ]; then
@@ -51,8 +52,8 @@ else
 fi
 
 # Copy all worlds in WORLDS_SRC to WORLDS_DEST. Overwrite if specified
-log "Copying worlds in ${WORLDS_SRC} to ${WORLDS_DEST}."
-SRC_WORLDS=($(ls -d "${WORLDS_SRC}"/*/ | \
+log "Copying worlds in ${WORLDS_SRC} to ${WORLDS_DEST} (if any exist)."
+SRC_WORLDS=($(ls -d "${WORLDS_SRC}"/*/ 2> /dev/null | \
 	sed 's:/*$::' | \
 	awk -F '/' '{print $NF}'))
 OVERWRITE=($(replace_characters '\n,' ' ' "${OVERWRITE_WORLDS}"))
@@ -88,8 +89,8 @@ fi
 
 
 # Edit config.json of each world in WORLDS_DEST via .env files
-log "Updating config.json of each world..."
-ENV_WORLDS=($(ls "${WORLDS_SRC}"/*.env | \
+log "Updating config.json of each world (if any *.env exist)"
+ENV_WORLDS=($(ls "${WORLDS_SRC}"/*.env 2> /dev/null | \
 	awk -F '/' '{print $NF}' | \
 	cut -f 1 -d '.'))
 for ENV_WORLD in "${ENV_WORLDS[@]}"; do
