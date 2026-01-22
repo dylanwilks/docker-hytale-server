@@ -4,8 +4,8 @@ source "$(dirname "$0")/utils.sh"
 
 # Check system ARCH 
 ARCH=$(uname -m)
-if [ "$ARCH" != "x86_64" ]; then
-	log_error "Hytale servers only support x86_64 architecture currently."
+if [ "$ARCH" != "x86_64" ] && [ "$ARCH" != "arm64" ] && [ "$ARCH" != "aarch64" ]; then
+	log_error "Hytale servers only support x86_64 and arm64 architecture currently."
 	log_error "Current architecture: ${ARCH}"
 	exit 1
 fi
