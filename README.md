@@ -140,7 +140,7 @@ can be found in [examples/](https://github.com/dylanwilks/docker-hytale-server/t
 | `MODS_SRC` | `/mods` | Directory to copy mods from |
 | `REMOVE_OLD_MODS` | `false` | Remove all existing mods |
 | `ADDRESS` | `0.0.0.0:5520` | Binds the server to the specified address |
-| `ALLOW_OP` | `true` | Allows giving OP to players |
+| `ALLOW_OP` | `false` | Allows giving OP to players |
 | `ENABLE_BACKUPS` | `true` | Enables automatic backups |
 | `BACKUP_FREQUENCY` | `30` | Minutes until backup |
 | `BACKUP_MAX_COUNT` | `5` | Max number of backups allowed before pruning |
