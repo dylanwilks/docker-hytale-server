@@ -5,7 +5,7 @@ environment variables, compose.yml, and scripts:
 - Modify the `config.json` for the server and each world
 - Specify JVM arguments and server options
 - Automatically update the server and set downloader flags
-- Copy worlds and mods into the container and overwrite existing ones
+- Copy universe files (including worlds) and mods into the server area and overwrite existing ones
 - Generate OAuth tokens for authentication externally
 
 Make sure to check Hytale's own pages[[1]](https://support.hytale.com/hc/en-us/articles/45326769420827-Hytale-Server-Manual)[[2]](https://support.hytale.com/hc/en-us/articles/45328341414043-Server-Provider-Authentication-Guide)
@@ -18,7 +18,7 @@ By default the Hytale server uses **UDP port 5520** via the **QUIC protocol**, t
 Set your router to forward the port to your server machine if necessary.
 
 ### Firewall Rules
-Below are some commands to open port 5520 on their respective OS.
+Below are some commands to open port 5520 in the firewall of the respective OS.
 
 **Windows Defense Firewall**
 
@@ -34,7 +34,7 @@ Below are some commands to open port 5520 on their respective OS.
 
 ## Updating and Downloading Server Files
 Updating is done automatically on boot if the `UPDATE_SERVER` variable is set to `true`. Available updates are checked by using the `--print-version` and `--version` flags with the downloader
-to determine if there is a newer game and downloader version respectively. On a first time set up you will need to verify online to download the server files and generate file with your credentials.
+to determine if there is a newer game and downloader version respectively. On a first time set up you will need to verify online to download the server files.
 
 There are additional variables for controlling the downloader. `FORCE_DOWNLOAD` can be used to forcefully download server files and assets regardless of version. `USE_PRERELEASE` will download
 the server from the pre-release channel if `true`, and `SKIP_UPDATE_CHECK` will skip updating the *downloader* if `true`.
@@ -47,14 +47,14 @@ this method will be assumed by default and the server will run **/auth login dev
 For a first time setup you will be asked to verify online. After doing so, the server will store and encrypt your credentials in
 **auth.enc** so you don't have to verify online for future boots.
 
-### Method 2: Generating Tokens
+### Method 2: Generating Tokens Manually
 Running **request_tokens.sh** will automatically fetch the tokens and owner info for you and write them onto a file. 
-For example, to place the tokens and owner info in .env, you would run
+For example, to place the tokens and owner info into .env, you would run
 
 ```./request_tokens.sh .env```
 
-If running for the first time you will be prompted to verify online. The script will then store the refresh token in **.refresh_token** and re-use it so you don't
-have to verify for future calls (up until the refresh token expires at least).
+If running for the first time you will be prompted to verify online. The script will then store the refresh token in **.refresh_token** and re-use it for future calls so you 
+no longer have to verify each time (up until the refresh token expires at least).
 
 You will have to run this each time before starting the server. **Useful for testing**.
 
@@ -62,7 +62,7 @@ You will have to run this each time before starting the server. **Useful for tes
 There are optional attach points for universe, worlds, and mod files to be copied into the server area. These attach points are specified by `UNIVERSE_SRC`,
 `WORLDS_SRC`, and `MODS_SRC`.
 
-Below is an example of `compose.yml` modified to attach to the points specified by their default values.
+Below is an example of `compose.yml` modified to attach files to the points specified by the variables. In this case they are default values.
 ```yml
 ...
     volumes:
@@ -74,7 +74,7 @@ Below is an example of `compose.yml` modified to attach to the points specified 
 
 * `UNIVERSE_SRC`:
 
-Only player data, memories, and warps will be copied (without replacement) from this directory to the server area. Any player data must be stored in `${UNIVERSE_SRC}/players`.
+Only player data, memories, and warps will be copied (without replacement) from this directory over to the server area. Any player data must be stored in `${UNIVERSE_SRC}/players`.
 There are variables `OVERWRITE_PLAYERS`, `OVERWRITE_MEMORIES`, and `OVERWRITE_WARPS` you can set to forcefully replace the existing files in the server area if they already exist.
 
 * `WORLDS_SRC`:
@@ -137,17 +137,17 @@ can be found in [examples/](https://github.com/dylanwilks/docker-hytale-server/t
 | `OVERWRITE_MEMORIES` | `false` | Overwrite the existing memories |
 | `OVERWRITE_WARPS` | `false` | Overwrite the existing warps |
 | `OVERWRITE_WORLDS` | `""` | Overwrite the existing worlds |
-| `MODS_SRC` | `/mods` | Directory copy mods from |
+| `MODS_SRC` | `/mods` | Directory to copy mods from |
 | `REMOVE_OLD_MODS` | `false` | Remove all existing mods |
 | `ADDRESS` | `0.0.0.0:5520` | Binds the server to the specified address |
-| `ALLOW_OP` | `true` | Allows giving OP permissions to players |
+| `ALLOW_OP` | `true` | Allows giving OP to players |
 | `ENABLE_BACKUPS` | `true` | Enables automatic backups |
-| `BACKUP_FREQUENCY` | `30` | Number of minutes to backup |
+| `BACKUP_FREQUENCY` | `30` | Minutes until backup |
 | `BACKUP_MAX_COUNT` | `5` | Max number of backups allowed before pruning |
 | `BOOT_COMMAND` | `""` | Commands to run on server start via `--boot-command` |
 | `AUTH_MODE` | `authenticated` | Start the server with the specified authentication mode |
 | `DISABLE_SENTRY` | `false` | Disables sentry service |
-| `ACCEPT_EARLY_PLUGINS` | `false` | Allows for early plugins |
+| `ACCEPT_EARLY_PLUGINS` | `false` | Allow for early plugins |
 | `VALIDATE_ASSETS` | `false` | Validate assets on server startup |
 | `VALIDATE_WORLD_GEN` | `false` | Validate world gen on server startup |
 | `VALIDATE_PREFABS` | `""` | Validate prefabs on server startup |
