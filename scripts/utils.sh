@@ -52,7 +52,7 @@ replace_characters() {
 		words="${words}${args[${i}]}"
 	done
 
-	printf "${words}" | tr "$1" "$2"
+	printf -- "${words}" | tr "$1" "$2"
 }
 
 contains_element() {
