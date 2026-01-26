@@ -116,7 +116,7 @@ can be found in [examples/](https://github.com/dylanwilks/docker-hytale-server/t
 | `UID` | `1000` | Run the server as this UID |
 | `GID` | `1000` | Run the server as this GID |
 | `SESSION_TOKEN` | `""` | Use this session token to authenticate the server |
-| `IDENTITY_TOKEN ` | `""` | Use this identity token to autheticate the server |
+| `IDENTITY_TOKEN ` | `""` | Use this identity token to authenticate the server |
 | `OWNER_UUID` | `""` | Set `--owner-uuid` option for the server |
 | `OWNER_NAME` | `""` | Set `--owner-name` option for the server |
 | `UPDATE_SERVER` | `true` | Update the server on boot if a new version is found |
