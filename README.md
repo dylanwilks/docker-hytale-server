@@ -123,6 +123,7 @@ can be found in [examples/](https://github.com/dylanwilks/docker-hytale-server/t
 | `FORCE_DOWNLOAD` | `false` | Force download server files on boot regardless of version |
 | `SKIP_UPDATE_CHECK` | `false` | Skip checking for *downloader* updates |
 | `USE_PRELEASE` | `false` | Download server files from the pre-release channel |
+| `UPDATE_AOT` | `true` | Train the AOT cache on server update rather than rely on the provided one |
 | `VERSION` | `3` | Do not modify |
 | `SERVER_NAME` | `"Hytale Server"` | Name of the server |
 | `MOTD` | `""` | MOTD of the server |

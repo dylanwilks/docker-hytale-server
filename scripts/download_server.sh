@@ -6,6 +6,7 @@ source "$(dirname "$0")/utils.sh"
 : "${FORCE_DOWNLOAD:=false}"
 : "${SKIP_UPDATE_CHECK:=false}"
 : "${USE_PRERELEASE:=false}"
+: "${UPDATE_AOT:=true}"
 DOWNLOADER_NAME=hytale-downloader-linux-amd64
 VERSION_FILE=.version
 
@@ -28,9 +29,20 @@ get_downloader() {
 	fi
 }
 
+train_aot() {
+	log "Training AOT cache (running server jar with --bare option)..."
+
+	java -XX:AOTCacheOutput=/data/Server/HytaleServer.aot \
+		-jar /data/Server/HytaleServer.jar \
+		--assets Assets.zip \
+		--boot-command stop > /dev/null 2>&1
+
+	log "Created HytaleServer.aot."
+}
+
 download_server() {
 	if [ ! -f ./.hytale-downloader-credentials.json ]; then
-		log "Credentials not found. Authentication required to download files."
+		log_warning "Credentials not found. Authentication required to download files."
 	fi
 
 	printf "\n"
@@ -40,6 +52,10 @@ download_server() {
 	rm "${version}.zip"
 	log "Successfully downloaded server files."
 	echo "${version}" > "${VERSION_FILE}"
+
+	if is_true "${UPDATE_AOT}"; then
+		train_aot
+	fi
 }
 
 # Check for hytale-downloader-linux-amd64. Download if it does not exist

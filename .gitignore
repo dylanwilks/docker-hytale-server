@@ -4,3 +4,6 @@
 backup/
 mods/
 universe/
+data/
+.env
+compose.yml
