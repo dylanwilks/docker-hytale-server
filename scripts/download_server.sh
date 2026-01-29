@@ -35,6 +35,7 @@ train_aot() {
 	java -XX:AOTCacheOutput=/data/Server/HytaleServer.aot \
 		-jar /data/Server/HytaleServer.jar \
 		--assets Assets.zip \
+		--bare \
 		--boot-command stop > /dev/null 2>&1
 
 	log "Created HytaleServer.aot."
