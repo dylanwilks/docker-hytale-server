@@ -87,8 +87,9 @@ for WORLD in "${SRC_WORLDS[@]}"; do
 	fi
 done
 
-# Create default world if it does not exist
-if [ ! -d "${WORLDS_DEST}"/"${DEFAULT_WORLD}" ]; then
+# Create default world if it does not exist and if <world>.env exists
+if [ ! -d "${WORLDS_DEST}"/"${DEFAULT_WORLD}" ] && \
+	[ -f "${WORLDS_DEST}"/"${DEFAULT_WORLD}.env" ]; then
 	log_warning "Default world not found in ${WORLDS_DEST}."
 	log "Starting server once to generate world files..."
 
