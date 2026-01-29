@@ -58,6 +58,10 @@ no longer have to verify each time (up until the refresh token expires at least)
 
 You will have to run this each time before starting the server. **Useful for testing**.
 
+## AOT Cache Training
+Since the provided HytaleServer.aot file that comes with the downloader often yields errors, the container will by default train and creating its own when downloading server files.
+To control this set `UPDATE_AOT` accordingly. See [JEP 514](https://openjdk.org/jeps/514) for more info.
+
 ## Optional universe, worlds, and mods attach points
 There are optional attach points for universe, worlds, and mod files to be copied into the server area. These attach points are specified by `UNIVERSE_SRC`,
 `WORLDS_SRC`, and `MODS_SRC`.
