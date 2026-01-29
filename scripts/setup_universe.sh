@@ -89,7 +89,7 @@ done
 
 # Create default world if it does not exist and if <world>.env exists
 if [ ! -d "${WORLDS_DEST}"/"${DEFAULT_WORLD}" ] && \
-	[ -f "${WORLDS_DEST}"/"${DEFAULT_WORLD}.env" ]; then
+	[ -f "${WORLDS_SRC}"/"${DEFAULT_WORLD}.env" ]; then
 	log_warning "Default world not found in ${WORLDS_DEST}."
 	log "Starting server once to generate world files..."
 
@@ -108,7 +108,7 @@ ENV_WORLDS=($(ls "${WORLDS_SRC}"/*.env 2> /dev/null | \
 	awk -F '/' '{print $NF}' | \
 	cut -f 1 -d '.'))
 for ENV_WORLD in "${ENV_WORLDS[@]}"; do
-	if [ -d "${WORLDS_DEST}/${ENV_WORLD}" ]; then
+	if [ -f "${WORLDS_SRC}"/"${ENV_WORLD}.env" ]; then
 		CONFIG="$(jq . "${WORLDS_DEST}/${ENV_WORLD}/config.json" 2>&1 /dev/null)"
 		if [ "$?" -ne 0 ]; then
 			log_warning "${WORLDS_DEST}/${ENV_WORLD}/config.json not found. Skipping..."
