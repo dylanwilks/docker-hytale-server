@@ -29,8 +29,8 @@ get_downloader() {
 }
 
 download_server() {
-	if [ ! -f ./hytale-downloader-credentials.json ]; then
-		log "Credentials not found. Authentification required to download files."
+	if [ ! -f ./.hytale-downloader-credentials.json ]; then
+		log "Credentials not found. Authentication required to download files."
 	fi
 
 	printf "\n"
@@ -87,7 +87,7 @@ elif is_true "${UPDATE_SERVER}"; then
 	elif [ "${CURRENT_GAME_VERSION}" = "${LATEST_GAME_VERSION}" ]; then
 		log "Server is up-to-date (current: ${CURRENT_GAME_VERSION}). Skipping download."
 	else
-		log_warning "Server is out-of-date (current: ${CURRENT_GAME_VERSION}. \
+		log_warning "Server is out-of-date (current: ${CURRENT_GAME_VERSION}). \
 Latest version is ${LATEST_GAME_VERSION}."
 		download_server "${ARGS}"
 	fi
